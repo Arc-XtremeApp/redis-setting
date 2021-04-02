@@ -21,3 +21,36 @@ for x in $(seq 0 5); do echo "data-redis-cluster-$x"; kubectl delete pvc data-re
 for x in $(seq 0 5); do echo "redis-cluster-$x"; kubectl exec redis-cluster-$x -- redis-cli acl load; echo; done
 
 
+# proxy 製作
+
+#下指令
+yum install centos-release-scl
+yum-config-manager --enable rhel-server-rhscl-7-rpms
+yum install rh-python35
+scl enable rh-python35 bash
+yum install devtoolset-9
+scl enable devtoolset-9 bash
+wget https://github.com/RedisLabs/redis-cluster-proxy/archive/unstable.zip
+unzip unstable.zip
+make
+make PREFIX=/usr/local/redis_cluster_proxy install
+cp /usr/local/redis_cluster_proxy/bin/redis-cluster-proxy .
+
+#建立dockerfile
+
+FROM centos:7
+WORKDIR /data
+ADD redis-cluster-proxy /usr/local/bin/
+EXPOSE 7777
+
+build一下
+
+docker build . -t redis-cluster-proxy:v1.0.0
+
+#打tag
+docker tag redis-cluster-proxy:v1.0.0 arc119226/redis-cluster-proxy:v1.0.0
+
+#推到docker hub
+docker login
+docker push arc119226/redis-cluster-proxy:v1.0.0
+
