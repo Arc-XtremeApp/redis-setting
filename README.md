@@ -76,18 +76,18 @@ docker build . -t redis-cluster-proxy:v1.0.0
 # 打tag
 docker tag redis-cluster-proxy:v1.0.0 arc119226/redis-cluster-proxy:v1.0.0
 
-# 推到docker hub
+# 推到 docker hub
 docker login
 docker push arc119226/redis-cluster-proxy:v1.0.0
 
-# 捕鼠設定 修改 cluster IP 為 redis svc 的 ip
+# 修改 cluster IP 為 redis svc 的 ip
 
 kubectl apply -f proxy-conf.yml
 
-# proxy-deploy.yml
+# deploy
 
 kubectl apply -f proxy-deploy.yml
 
-#  proxy-svc.yml
+# service
 
 kubectl apply -f proxy-svc.yml
