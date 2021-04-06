@@ -1,4 +1,16 @@
 # redis-setting
+
+kubectl apply -f redis-conf.yml
+
+kubectl apply -f redis-pv.yml
+
+kubectl apply -f redis-sts.yml
+
+kubectl apply -f redis-svc.yml
+
+
+部屬完畢之後
+
 redis in k8s
 在k8s上設定
 
