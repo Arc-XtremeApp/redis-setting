@@ -91,3 +91,14 @@ kubectl apply -f proxy-deploy.yml
 # service
 
 kubectl apply -f proxy-svc.yml
+
+
+# test
+
+延遲
+
+redis-cli --intrinsic-latency 100
+
+壓力測試
+
+redis-benchmark -p 30001 -q -n 100000 -r 100000
