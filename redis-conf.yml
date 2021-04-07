@@ -11,6 +11,7 @@ data:
   users.acl: |
     user default on nopass ~* &* +@all
     user arc on nopass ~* &* +@all
+    user larry on nopass ~* &* +@all
   myfile.txt: |
     hello world
   redis.conf: |+
